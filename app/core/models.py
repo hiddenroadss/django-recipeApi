@@ -17,17 +17,17 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password):
         """Create and save superuser"""
         user = self.create_user(email, password)
-        user.is_stuff = True
+        user.is_staff = True
         user.is_superuser = True
         return user
-    
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that support using email instead of username"""
     email = models.EmailField('Email', max_length=255, unique=True)
     name = models.CharField('Name', max_length=255)
-    is_active = models.BooleanField('Active', default=True)
-    is_stuff = models.BooleanField('Is stuff', default=False)
+    is_active = models.BooleanField('active', default=True)
+    is_staff = models.BooleanField('is_staff', default=False)
 
     objects = UserManager()
 
